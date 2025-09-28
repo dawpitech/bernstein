@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: traefik
   namespace: kube-public
+  labels:
+    app: traefik
 spec:
   type: NodePort
   selector:
@@ -11,8 +13,8 @@ spec:
     - name: web
       port: 80
       targetPort: 80
-      nodePort: 30021
+      nodePort: 30080
     - name: dashboard
       port: 8080
       targetPort: 8080
-      nodePort: 30042
+      nodePort: 30081
