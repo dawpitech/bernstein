@@ -1,0 +1,28 @@
+name: Mirror
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  SSH_PUB_KEY:
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzKKT5xCssZ38UI5VWaPOqW3ldVsg/0tDceTrCFnsd3 github.action@antoinebellanger.fr
+
+jobs:
+  mirror:
+    if: github.repository_owner == 'dawpitech'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Main Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+          fetch-depth: '0'
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          persist-credentials: 'true'
+
+      - name: Push to epitech
+        run: |
+          git remote add epitech "${{ secrets.MIRROR_REPO }}"
+          git push --force epitech
