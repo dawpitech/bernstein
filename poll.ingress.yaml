@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: traefik
+spec:
+  controller: traefik.io/ingress-controller
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: poll-ingress
+  namespace: default
+  labels:
+    app: poll
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: poll.dop.io
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: poll-service
+                port:
+                  number: 80
