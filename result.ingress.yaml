@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: result-ingress
+  namespace: default
+  labels:
+    app: result
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: result.dop.io
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: result-service
+                port:
+                  number: 80
