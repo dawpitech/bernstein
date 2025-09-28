@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
+  namespace: default
+  labels:
+    app: redis
 spec:
   replicas: 1
   selector:
@@ -12,14 +15,16 @@ spec:
       labels:
         app: redis
     spec:
+      restartPolicy: Always
       containers:
         - name: redis
           image: redis:5.0
+          resources:
+            limits:
+              memory: "128M"
+              cpu: "500m"
           ports:
             - containerPort: 6379
-          env:
-            - name: REDIS_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: redis-config
-                  key: REDIS_PORT
+          envFrom:
+            - configMapRef:
+                name: redis-config
