@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: cadvisor
-        image: gcr.io/cadvisor/cadvisor:v0.47.2
+        image: gcr.io/cadvisor/cadvisor:latest
         securityContext:
           privileged: true
         ports:
