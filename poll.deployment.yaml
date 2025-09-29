@@ -28,3 +28,13 @@ spec:
           envFrom:
             - configMapRef:
                 name: redis-config
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - poll
+              topologyKey: "kubernetes.io/hostname"
