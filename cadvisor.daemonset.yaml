@@ -30,7 +30,7 @@ spec:
           readOnly: true
         - name: runtime-data
           mountPath: /var/run
-          readOnly: false
+          readOnly: true
         - name: sys
           mountPath: /sys
           readOnly: true
