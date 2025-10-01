@@ -28,6 +28,9 @@ spec:
         - name: rootfs
           mountPath: /rootfs
           readOnly: true
+        - name: runtime-data
+          mountPath: /var/run
+          readOnly: false
         - name: sys
           mountPath: /sys
           readOnly: true
@@ -41,6 +44,9 @@ spec:
       - name: rootfs
         hostPath:
           path: /
+      - name: runtime-data
+        hostPath:
+          path: /var/run
       - name: sys
         hostPath:
           path: /sys
