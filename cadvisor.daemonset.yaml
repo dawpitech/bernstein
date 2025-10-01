@@ -34,8 +34,8 @@ spec:
         - name: docker
           mountPath: /var/lib/docker
           readOnly: true
-        - name: dockersock
-          mountPath: /var/run/docker.sock
+        - name: disks
+          mountPath: /dev/disk
           readOnly: true
       volumes:
       - name: rootfs
@@ -47,6 +47,6 @@ spec:
       - name: docker
         hostPath:
           path: /var/lib/docker
-      - name: dockersock
+      - name: disks
         hostPath:
-          path: /var/run/docker.sock
+          path: /dev/disk
