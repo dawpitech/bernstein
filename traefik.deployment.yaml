@@ -34,3 +34,13 @@ spec:
             - "--providers.kubernetesingress"
             - "--entrypoints.web.address=:80"
             - "--log.level=INFO"
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - traefik
+              topologyKey: "kubernetes.io/hostname"
