@@ -19,8 +19,14 @@ kubectl apply -f traefik.rbac.yaml \
     -f traefik.deployment.yaml \
     -f traefik.service.yaml
 
+echo "Waiting for DB pod to be available..."
 kubectl wait --for=condition=ready pod -l app=postgres --timeout=120s
+
+echo "Waiting for DB ready state..."
+sleep 10
 
 echo "CREATE TABLE IF NOT EXISTS votes \
 (id text PRIMARY KEY, vote text NOT NULL);" \
     | kubectl exec -i $(kubectl get pod -l app=postgres -o jsonpath='{.items[0].metadata.name}') -c postgres -- psql -U user -d db
+
+echo "Done."
